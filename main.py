@@ -4,10 +4,13 @@ from PySide2 import QtCore, QtGui, QtWidgets
 from PySide2.QtCore import (QCoreApplication, QPropertyAnimation, QDate, QDateTime, QMetaObject, QObject, QPoint, QRect, QSize, QTime, QTimer, QUrl, Qt, QEvent)
 from PySide2.QtGui import (QBrush, QColor, QConicalGradient, QCursor, QFont, QFontDatabase, QIcon, QKeySequence, QLinearGradient, QPalette, QPainter, QPixmap, QRadialGradient)
 from PySide2.QtWidgets import *
+from PySide2.QtWidgets import QGraphicsBlurEffect
 
 from ui_circleTimer import Ui_MainWindow
 import datetime
-
+import json
+import time
+import os
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -16,17 +19,34 @@ class MainWindow(QMainWindow):
         self.ui.setupUi(self)
         self.show()
 
-        self.ui.startButton.clicked.connect(self.set_timer)
+        # FUNCTIONS CONNECT
+        self.ui.start_button.clicked.connect(self.check_user_input)
+        self.ui.timeEdit.timeChanged.connect(lambda: self.calculate_time())
 
-        self.duration = 12*60*60
+        self.init_value = 0
+        self.duration = 0
+        self.stepper = 0
+
+        self.blur = QGraphicsBlurEffect()
+        self.blur.setBlurRadius(15)
+
+        self.unblur = QGraphicsBlurEffect()
+        self.unblur.setBlurRadius(0)
+  
+    def calculate_time(self):
+        self.duration = (self.ui.timeEdit.time().hour()*60 + self.ui.timeEdit.time().minute())*60
         self.step = 1/self.duration
         self.start_time = str(datetime.timedelta(seconds=self.duration))
-        self.ui.timeLabel.setText(self.start_time)
-        
-        self.init_value = 0
 
-    def calc_times(self):
-        now = datetime.datetime
+
+    def check_user_input(self):
+        if self.ui.plainTextEdit.toPlainText() == '' or self.duration == 0:
+            self.ui.plainTextEdit.setPlaceholderText('Please enter information and set the timer')
+        else:
+            self.ui.timeEdit.stepUp()
+            self.ui.floating_frame.setGraphicsEffect(self.blur)
+            self.set_timer()
+
 
     def set_timer(self):
         self.timer=QTimer()
@@ -34,30 +54,25 @@ class MainWindow(QMainWindow):
         self.timer.start(1000)
 
     def progressbar_step(self):
-        self.update_progress_bar(1 - self.init_value-self.step)
+
+        #self.ui.timeEdit.stepDown()
+        self.stepper += 1
+        if self.stepper%60 == 1:
+            self.ui.timeEdit.stepDown()
+
+        self.update_progress_bar(1 - self.init_value - self.step)
         self.init_value += self.step
-        self.time_label_update()
 
         if self.init_value >= 1:
             self.stop_and_show()
             
     def stop_and_show(self):
         self.timer.stop()
-        self.ui.timeLabel.setText('<p align="center">DONE</p>')
-        self.ui.email.setText('<p align="center">danielody@protonmail.com <br> maryzemorf@yandex.com </p>')
-        self.ui.password.setText('<p align="center"> #### <br> ####</p>')
-        self.ui.digits.setText('<p align="center">####</p>')
+        self.ui.floating_frame.setGraphicsEffect(self.unblur)
+        
 
-
-    def time_label_update(self):
-            html_label_text = """<p align="center">{Value}</p>"""
-            self.duration -= 1
-            self.updated_time = str(datetime.timedelta(seconds=self.duration))
-            new_html_label = html_label_text.replace("{Value}", self.updated_time)
-            self.ui.timeLabel.setText(new_html_label)
-
+            
     def update_progress_bar(self, value):
-
         stop_1 = str(value)
         stop_2 = str(value+0.001)
         styleSheet = """
