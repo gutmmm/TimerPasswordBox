@@ -5,7 +5,10 @@ from PySide2.QtCore import (QCoreApplication, QPropertyAnimation, QDate, QDateTi
 from PySide2.QtGui import (QBrush, QColor, QConicalGradient, QCursor, QFont, QFontDatabase, QIcon, QKeySequence, QLinearGradient, QPalette, QPainter, QPixmap, QRadialGradient)
 from PySide2.QtWidgets import *
 
+from PySide2extn.RoundProgressBar import roundProgressBar
+
 from ui_circleTimer import Ui_MainWindow
+from functools import partial
 import datetime
 import json
 import time
@@ -17,6 +20,27 @@ class MainWindow(QMainWindow):
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
 
+        # Buttons events
+        self.ui.add_btn.clicked.connect(lambda: self.ui.stackedWidget.setCurrentIndex(1))
+        self.ui.back_btn.clicked.connect(lambda: self.ui.stackedWidget.setCurrentIndex(0))
+        self.ui.save_btn.clicked.connect(lambda: self.add_new_vault())
+
+        # Round progress bar
+        self.ui.progressCircle.rpb_setValue(0)
+        self.ui.progressCircle.rpb_setGeometry(80, 0)
+        self.ui.progressCircle.rpb_setLineWidth(10)
+        self.ui.progressCircle.rpb_setPathWidth(15)
+        self.ui.progressCircle.rpb_setLineCap('RoundCap')
+
+        self.settings_file()
+
+        self.timer=QTimer()
+        self.timer.timeout.connect(self.update)
+        self.bar_value = 0
+        self.delay = 0
+        
+
+    def settings_file(self):
         if 'vaults.json' not in os.listdir():
             with open('vaults.json', 'w') as file:
                 file.write(json.dumps({}))
@@ -26,33 +50,35 @@ class MainWindow(QMainWindow):
                 if self.vaults == {}:
                     print('No vaults')
                 else:
+                    print(self.vaults)
                     self.compose_vaults()
-
-        self.ui.add_btn.clicked.connect(lambda: self.ui.stackedWidget.setCurrentIndex(1))
-        self.ui.back_btn.clicked.connect(lambda: self.ui.stackedWidget.setCurrentIndex(0))
-        self.ui.save_btn.clicked.connect(lambda: self.add_new_vault())
-
 
     def compose_vaults(self):
         for x, vault in enumerate(self.vaults):
-            self.delay = self.vaults[vault]
             btn_name = f'button{x}'
+            button = QPushButton(self.ui.scrollAreaWidgetContents)
+            button.setObjectName(btn_name)
+            button.setMinimumSize(QSize(0, 40))
+            button.setText(f'Vault {x+1}')
+            button.setStyleSheet(u"color: rgb(255, 255, 255);")
+            button.clicked.connect(partial(self.start_timer, self.vaults[vault]))
+            self.ui.verticalLayout_5.addWidget(button)
 
-            print(self.delay)
-            print(btn_name)
+    def start_timer(self, time):
+        self.delay = int(time)
+        self.ui.stackedWidget.setCurrentIndex(2)
+        self.step = 100 / int(self.delay)
+        self.timer.start(1000)
 
-            self.button = QPushButton(self.ui.scrollAreaWidgetContents)
-            self.button.setObjectName(btn_name)
-            self.button.setMinimumSize(QSize(0, 40))
-            self.button.setText(f'Vault {x+1}')
-            self.button.setStyleSheet(u"color: rgb(255, 255, 255);")
-            self.button.clicked.connect(lambda: self.start_timer(self.delay))
-            self.ui.verticalLayout_5.addWidget(self.button)
-
-
-    def start_timer(self, delay):
-        #self.ui.stackedWidget.setCurrentIndex(2)
-        print(delay)
+    def update(self):
+        if self.bar_value == 100:
+            self.timer.stop()
+            self.ui.time_left_label.setText(str(self.delay - 1))
+        else:
+            self.bar_value += self.step
+            self.ui.progressCircle.rpb_setValue(self.bar_value)
+            self.ui.time_left_label.setText(str(self.delay - 1))
+            self.delay -= 1
 
     def add_new_vault(self):
         if self.ui.text_input.toPlainText() == '':
@@ -64,9 +90,7 @@ class MainWindow(QMainWindow):
                 if (time.time() - self.start_time >= 1)
                 else None
                 )
-            
             self.timer.start(1000)
-
         else:
             pass
 

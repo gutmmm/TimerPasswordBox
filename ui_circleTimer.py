@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'circleTimerTVuTfh.ui'
+## Form generated from reading UI file 'circleTimerLDppwp.ui'
 ##
 ## Created by: Qt User Interface Compiler version 5.15.3
 ##
@@ -11,6 +11,8 @@
 from PySide2.QtCore import *
 from PySide2.QtGui import *
 from PySide2.QtWidgets import *
+
+from PySide2extn.RoundProgressBar import roundProgressBar
 
 
 class Ui_MainWindow(object):
@@ -48,23 +50,23 @@ class Ui_MainWindow(object):
         MainWindow.setStyleSheet(u"background-color: rgb(31, 31, 31);")
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
-        self.centralwidget.setMinimumSize(QSize(0, 550))
-        self.centralwidget.setMaximumSize(QSize(16777215, 550))
+        self.centralwidget.setMinimumSize(QSize(490, 540))
+        self.centralwidget.setMaximumSize(QSize(490, 540))
         self.verticalLayout_3 = QVBoxLayout(self.centralwidget)
-        self.verticalLayout_3.setSpacing(15)
+        self.verticalLayout_3.setSpacing(7)
         self.verticalLayout_3.setObjectName(u"verticalLayout_3")
-        self.verticalLayout_3.setContentsMargins(15, 15, 15, 15)
+        self.verticalLayout_3.setContentsMargins(0, 0, 0, 0)
         self.floating_frame = QFrame(self.centralwidget)
         self.floating_frame.setObjectName(u"floating_frame")
-        self.floating_frame.setMinimumSize(QSize(0, 458))
-        self.floating_frame.setMaximumSize(QSize(16777215, 550))
+        self.floating_frame.setMinimumSize(QSize(490, 540))
+        self.floating_frame.setMaximumSize(QSize(490, 540))
         self.floating_frame.setFrameShape(QFrame.StyledPanel)
         self.floating_frame.setFrameShadow(QFrame.Sunken)
         self.stackedWidget = QStackedWidget(self.floating_frame)
         self.stackedWidget.setObjectName(u"stackedWidget")
-        self.stackedWidget.setGeometry(QRect(10, 0, 451, 500))
-        self.stackedWidget.setMinimumSize(QSize(0, 500))
-        self.stackedWidget.setMaximumSize(QSize(16777215, 500))
+        self.stackedWidget.setGeometry(QRect(10, 0, 481, 550))
+        self.stackedWidget.setMinimumSize(QSize(481, 550))
+        self.stackedWidget.setMaximumSize(QSize(500, 550))
         self.page = QWidget()
         self.page.setObjectName(u"page")
         self.verticalLayout = QVBoxLayout(self.page)
@@ -104,7 +106,7 @@ class Ui_MainWindow(object):
         self.scrollArea.setWidgetResizable(True)
         self.scrollAreaWidgetContents = QWidget()
         self.scrollAreaWidgetContents.setObjectName(u"scrollAreaWidgetContents")
-        self.scrollAreaWidgetContents.setGeometry(QRect(0, 0, 411, 346))
+        self.scrollAreaWidgetContents.setGeometry(QRect(0, 0, 441, 396))
         self.verticalLayout_5 = QVBoxLayout(self.scrollAreaWidgetContents)
         self.verticalLayout_5.setObjectName(u"verticalLayout_5")
         self.scrollArea.setWidget(self.scrollAreaWidgetContents)
@@ -134,9 +136,13 @@ class Ui_MainWindow(object):
         self.stackedWidget.addWidget(self.page)
         self.page_2 = QWidget()
         self.page_2.setObjectName(u"page_2")
+        self.page_2.setMinimumSize(QSize(500, 0))
+        self.page_2.setMaximumSize(QSize(500, 16777215))
         self.frame_5 = QFrame(self.page_2)
         self.frame_5.setObjectName(u"frame_5")
-        self.frame_5.setGeometry(QRect(0, 0, 451, 511))
+        self.frame_5.setGeometry(QRect(0, 0, 480, 511))
+        self.frame_5.setMinimumSize(QSize(480, 0))
+        self.frame_5.setMaximumSize(QSize(480, 16777215))
         self.frame_5.setFrameShape(QFrame.StyledPanel)
         self.frame_5.setFrameShadow(QFrame.Raised)
         self.verticalLayout_6 = QVBoxLayout(self.frame_5)
@@ -207,6 +213,38 @@ class Ui_MainWindow(object):
         self.stackedWidget.addWidget(self.page_2)
         self.page_3 = QWidget()
         self.page_3.setObjectName(u"page_3")
+        self.verticalLayout_7 = QVBoxLayout(self.page_3)
+        self.verticalLayout_7.setObjectName(u"verticalLayout_7")
+        self.progressCircle = roundProgressBar(self.page_3)
+        self.progressCircle.setObjectName(u"progressCircle")
+        self.progressCircle.setMinimumSize(QSize(0, 300))
+        self.progressCircle.setMaximumSize(QSize(16777215, 300))
+
+        self.verticalLayout_7.addWidget(self.progressCircle)
+
+        self.frame_8 = QFrame(self.page_3)
+        self.frame_8.setObjectName(u"frame_8")
+        self.frame_8.setMaximumSize(QSize(16777215, 200))
+        self.frame_8.setFrameShape(QFrame.StyledPanel)
+        self.frame_8.setFrameShadow(QFrame.Raised)
+        self.verticalLayout_11 = QVBoxLayout(self.frame_8)
+        self.verticalLayout_11.setObjectName(u"verticalLayout_11")
+        self.time_left_label = QLabel(self.frame_8)
+        self.time_left_label.setObjectName(u"time_left_label")
+        font2 = QFont()
+        font2.setPointSize(16)
+        font2.setBold(True)
+        font2.setWeight(75)
+        self.time_left_label.setFont(font2)
+        self.time_left_label.setStyleSheet(u"background-color: rgb(55, 55, 55);\n"
+"color: rgb(255, 255, 255);")
+        self.time_left_label.setAlignment(Qt.AlignCenter)
+
+        self.verticalLayout_11.addWidget(self.time_left_label)
+
+
+        self.verticalLayout_7.addWidget(self.frame_8)
+
         self.stackedWidget.addWidget(self.page_3)
 
         self.verticalLayout_3.addWidget(self.floating_frame)
@@ -214,6 +252,9 @@ class Ui_MainWindow(object):
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
+
+        self.stackedWidget.setCurrentIndex(0)
+
 
         QMetaObject.connectSlotsByName(MainWindow)
     # setupUi
@@ -230,5 +271,6 @@ class Ui_MainWindow(object):
 "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:11pt; font-weight:400;\"><br /></p></body></html>", None))
         self.save_btn.setText(QCoreApplication.translate("MainWindow", u"Save", None))
         self.back_btn.setText(QCoreApplication.translate("MainWindow", u"Back", None))
+        self.time_left_label.setText(QCoreApplication.translate("MainWindow", u"TIME LEFT", None))
     # retranslateUi
 
