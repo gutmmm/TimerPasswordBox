@@ -1,26 +1,25 @@
+from functools import partial
+import datetime
+import json
+import time
 import sys
-import platform
+import os
+
+from cryptography.fernet import Fernet
+
 from PySide2 import QtCore, QtGui, QtWidgets
 from PySide2.QtCore import (QCoreApplication, QPropertyAnimation, QDate, QDateTime, QMetaObject, QObject, QPoint, QRect, QSize, QTime, QTimer, QUrl, Qt, QEvent)
 from PySide2.QtGui import (QBrush, QColor, QConicalGradient, QCursor, QFont, QFontDatabase, QIcon, QKeySequence, QLinearGradient, QPalette, QPainter, QPixmap, QRadialGradient)
 from PySide2.QtWidgets import *
 
 from PySide2extn.RoundProgressBar import roundProgressBar
-
 from ui_circleTimer import Ui_MainWindow
-from functools import partial
-import datetime
-import json
-import time
-import os
 
-import base64
-import math
 
-from cryptography.fernet import Fernet
- 
+
 class MainWindow(QMainWindow):
     def __init__(self):
+        # Set UI
         QMainWindow.__init__(self)
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
@@ -28,7 +27,6 @@ class MainWindow(QMainWindow):
         # Buttons events
         self.ui.add_btn.clicked.connect(lambda: self.ui.stackedWidget.setCurrentIndex(1))
         self.ui.save_btn.clicked.connect(lambda: self.add_new_vault())
-        self.ui.save_btn.clicked.connect(lambda: self.ui.stackedWidget.setCurrentIndex(0))
 
         # Round progress bar
         self.ui.progressCircle.rpb_setValue(0)
@@ -71,9 +69,7 @@ class MainWindow(QMainWindow):
             self.ui.verticalLayout_5.addWidget(button)
 
     def start_timer(self, vault):
-        time = int(vault['delay'])
-        format = vault['format']
-        time_in_seconds = self.convert_time_to_seconds(time, format)
+        time_in_seconds = self.convert_time_to_seconds(int(vault['delay']), vault['format'])
         self.password = vault['password']
         self.seconds_to_end = int(time_in_seconds)
         self.step = 100 / int(self.seconds_to_end)
@@ -82,16 +78,13 @@ class MainWindow(QMainWindow):
 
     def update(self):
         if self.bar_value >= 100:
-            self.timer.stop()
             pass_to_decrypt = bytes(self.password, 'utf-8')
             decrypted_password = self.fernet.decrypt(pass_to_decrypt).decode()
             self.ui.message.setText(decrypted_password)
+            self.timer.stop()
         else:
             td = datetime.timedelta(seconds=self.seconds_to_end)
-            hours = td.seconds//3600
-            minutes = (td.seconds//60)%60
-            seconds = td.seconds%60 - 1 
-            formated_time_left = QtCore.QTime(hours, minutes, seconds)
+            formated_time_left = QtCore.QTime(td.seconds//3600, (td.seconds//60)%60, td.seconds%60 - 1 )
             self.ui.timeEdit.setTime(formated_time_left)
             self.seconds_to_end -= 1
             self.bar_value += self.step
@@ -102,6 +95,7 @@ class MainWindow(QMainWindow):
             self.start_time = time.time()
             self.ui.vault_title.setPlaceholderText("This placholder can't be empty")
             self.ui.vault_message.setPlaceholderText("This placholder can't be empty")
+            
             self.timer = QTimer()
             self.timer.timeout.connect(lambda: self.ui.vault_title.setPlaceholderText("") 
                                        and self.ui.vault_message.setPlaceholderText("") 
@@ -112,6 +106,7 @@ class MainWindow(QMainWindow):
                 data = json.load(file)
             password = self.ui.vault_message.toPlainText()
             encMessage = self.fernet.encrypt(password.encode()).decode('utf-8')
+
             new_vault = {"vault name" : self.ui.vault_title.text(), 
                          "delay" : self.ui.delaySet.cleanText(),
                          "format" : self.ui.delay_format.currentText(),
@@ -121,7 +116,8 @@ class MainWindow(QMainWindow):
             with open('vaults.json', 'w+') as file:
                 json.dump(data, file)
 
-        self.reset_scroll_area()
+            self.reset_scroll_area()
+            self.ui.stackedWidget.setCurrentIndex(0)
 
     def convert_time_to_seconds(self, delay, format):
         if format == 'Minutes':
