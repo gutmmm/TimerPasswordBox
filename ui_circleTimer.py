@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'circleTimerLDppwp.ui'
+## Form generated from reading UI file 'circleTimerCeNYtV.ui'
 ##
 ## Created by: Qt User Interface Compiler version 5.15.3
 ##
@@ -31,12 +31,12 @@ class Ui_MainWindow(object):
         brush1.setStyle(Qt.SolidPattern)
         palette.setBrush(QPalette.Active, QPalette.Button, brush1)
         palette.setBrush(QPalette.Active, QPalette.ButtonText, brush)
-        palette.setBrush(QPalette.Active, QPalette.Base, brush)
+        palette.setBrush(QPalette.Active, QPalette.Base, brush1)
         palette.setBrush(QPalette.Active, QPalette.Window, brush1)
         palette.setBrush(QPalette.Inactive, QPalette.WindowText, brush)
         palette.setBrush(QPalette.Inactive, QPalette.Button, brush1)
         palette.setBrush(QPalette.Inactive, QPalette.ButtonText, brush)
-        palette.setBrush(QPalette.Inactive, QPalette.Base, brush)
+        palette.setBrush(QPalette.Inactive, QPalette.Base, brush1)
         palette.setBrush(QPalette.Inactive, QPalette.Window, brush1)
         brush2 = QBrush(QColor(190, 190, 190, 255))
         brush2.setStyle(Qt.SolidPattern)
@@ -140,7 +140,7 @@ class Ui_MainWindow(object):
         self.page_2.setMaximumSize(QSize(500, 16777215))
         self.frame_5 = QFrame(self.page_2)
         self.frame_5.setObjectName(u"frame_5")
-        self.frame_5.setGeometry(QRect(0, 0, 480, 511))
+        self.frame_5.setGeometry(QRect(0, 0, 480, 541))
         self.frame_5.setMinimumSize(QSize(480, 0))
         self.frame_5.setMaximumSize(QSize(480, 16777215))
         self.frame_5.setFrameShape(QFrame.StyledPanel)
@@ -160,25 +160,90 @@ class Ui_MainWindow(object):
         self.frame_6.setFrameShadow(QFrame.Raised)
         self.verticalLayout_9 = QVBoxLayout(self.frame_6)
         self.verticalLayout_9.setObjectName(u"verticalLayout_9")
-        self.label_2 = QLabel(self.frame_6)
-        self.label_2.setObjectName(u"label_2")
+        self.frame_9 = QFrame(self.frame_6)
+        self.frame_9.setObjectName(u"frame_9")
+        self.frame_9.setMinimumSize(QSize(0, 80))
+        self.frame_9.setFrameShape(QFrame.StyledPanel)
+        self.frame_9.setFrameShadow(QFrame.Raised)
+        self.horizontalLayout_2 = QHBoxLayout(self.frame_9)
+        self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
+        self.frame_11 = QFrame(self.frame_9)
+        self.frame_11.setObjectName(u"frame_11")
+        self.frame_11.setFrameShape(QFrame.StyledPanel)
+        self.frame_11.setFrameShadow(QFrame.Raised)
+        self.delaySet = QSpinBox(self.frame_11)
+        self.delaySet.setObjectName(u"delaySet")
+        self.delaySet.setGeometry(QRect(0, 10, 201, 51))
         font1 = QFont()
         font1.setPointSize(14)
         font1.setBold(True)
         font1.setWeight(75)
-        self.label_2.setFont(font1)
-        self.label_2.setStyleSheet(u"color: rgb(255, 255, 255);")
-        self.label_2.setAlignment(Qt.AlignCenter)
+        self.delaySet.setFont(font1)
+        self.delaySet.setStyleSheet(u"color: rgb(255, 255, 255);\n"
+"background-color: rgb(55, 55, 55);")
+        self.delaySet.setAlignment(Qt.AlignCenter)
+        self.delaySet.setButtonSymbols(QAbstractSpinBox.NoButtons)
+        self.delaySet.setMinimum(1)
+        self.delaySet.setValue(5)
 
-        self.verticalLayout_9.addWidget(self.label_2)
+        self.horizontalLayout_2.addWidget(self.frame_11)
 
-        self.text_input = QTextEdit(self.frame_6)
-        self.text_input.setObjectName(u"text_input")
-        self.text_input.setFont(font1)
-        self.text_input.setStyleSheet(u"background-color: rgb(55, 55, 55);\n"
+        self.frame_10 = QFrame(self.frame_9)
+        self.frame_10.setObjectName(u"frame_10")
+        self.frame_10.setFrameShape(QFrame.StyledPanel)
+        self.frame_10.setFrameShadow(QFrame.Raised)
+        self.delay_format = QComboBox(self.frame_10)
+        self.delay_format.addItem("")
+        self.delay_format.addItem("")
+        self.delay_format.addItem("")
+        self.delay_format.setObjectName(u"delay_format")
+        self.delay_format.setGeometry(QRect(0, 10, 191, 51))
+        self.delay_format.setFont(font1)
+        self.delay_format.setLayoutDirection(Qt.LeftToRight)
+        self.delay_format.setStyleSheet(u"color: rgb(255, 255, 255);\n"
+"selection-color: rgb(119, 118, 123);")
+
+        self.horizontalLayout_2.addWidget(self.frame_10)
+
+
+        self.verticalLayout_9.addWidget(self.frame_9)
+
+        self.vaultTitleLabel = QLabel(self.frame_6)
+        self.vaultTitleLabel.setObjectName(u"vaultTitleLabel")
+        self.vaultTitleLabel.setFont(font1)
+        self.vaultTitleLabel.setStyleSheet(u"color: rgb(255, 255, 255);")
+        self.vaultTitleLabel.setAlignment(Qt.AlignCenter)
+
+        self.verticalLayout_9.addWidget(self.vaultTitleLabel)
+
+        self.vault_title = QLineEdit(self.frame_6)
+        self.vault_title.setObjectName(u"vault_title")
+        self.vault_title.setMinimumSize(QSize(0, 40))
+        font2 = QFont()
+        font2.setPointSize(12)
+        font2.setBold(True)
+        font2.setWeight(75)
+        self.vault_title.setFont(font2)
+        self.vault_title.setStyleSheet(u"background-color: rgb(55, 55, 55);\n"
 "color: rgb(255, 255, 255);")
 
-        self.verticalLayout_9.addWidget(self.text_input)
+        self.verticalLayout_9.addWidget(self.vault_title)
+
+        self.vaultMessageLabel = QLabel(self.frame_6)
+        self.vaultMessageLabel.setObjectName(u"vaultMessageLabel")
+        self.vaultMessageLabel.setFont(font1)
+        self.vaultMessageLabel.setStyleSheet(u"color: rgb(255, 255, 255);")
+        self.vaultMessageLabel.setAlignment(Qt.AlignCenter)
+
+        self.verticalLayout_9.addWidget(self.vaultMessageLabel)
+
+        self.vault_message = QTextEdit(self.frame_6)
+        self.vault_message.setObjectName(u"vault_message")
+        self.vault_message.setFont(font2)
+        self.vault_message.setStyleSheet(u"background-color: rgb(55, 55, 55);\n"
+"color: rgb(255, 255, 255);")
+
+        self.verticalLayout_9.addWidget(self.vault_message)
 
 
         self.horizontalLayout.addWidget(self.frame_6)
@@ -201,12 +266,6 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_8.addWidget(self.save_btn)
 
-        self.back_btn = QPushButton(self.frame_2)
-        self.back_btn.setObjectName(u"back_btn")
-        self.back_btn.setStyleSheet(u"color: rgb(255, 255, 255);")
-
-        self.verticalLayout_8.addWidget(self.back_btn)
-
 
         self.verticalLayout_6.addWidget(self.frame_2)
 
@@ -219,6 +278,30 @@ class Ui_MainWindow(object):
         self.progressCircle.setObjectName(u"progressCircle")
         self.progressCircle.setMinimumSize(QSize(0, 300))
         self.progressCircle.setMaximumSize(QSize(16777215, 300))
+        self.timeEdit = QTimeEdit(self.progressCircle)
+        self.timeEdit.setObjectName(u"timeEdit")
+        self.timeEdit.setEnabled(False)
+        self.timeEdit.setGeometry(QRect(140, 190, 181, 51))
+        font3 = QFont()
+        font3.setPointSize(16)
+        font3.setBold(True)
+        font3.setWeight(75)
+        self.timeEdit.setFont(font3)
+        self.timeEdit.setStyleSheet(u"color: rgb(255, 255, 255);\n"
+"background-color: rgb(255, 255, 255, 0);")
+        self.timeEdit.setAlignment(Qt.AlignCenter)
+        self.timeEdit.setReadOnly(True)
+        self.timeEdit.setButtonSymbols(QAbstractSpinBox.NoButtons)
+        self.label_2 = QLabel(self.progressCircle)
+        self.label_2.setObjectName(u"label_2")
+        self.label_2.setGeometry(QRect(171, 230, 121, 20))
+        font4 = QFont()
+        font4.setPointSize(13)
+        font4.setBold(True)
+        font4.setWeight(75)
+        self.label_2.setFont(font4)
+        self.label_2.setStyleSheet(u"color: rgb(255, 255, 255);")
+        self.label_2.setAlignment(Qt.AlignCenter)
 
         self.verticalLayout_7.addWidget(self.progressCircle)
 
@@ -229,18 +312,14 @@ class Ui_MainWindow(object):
         self.frame_8.setFrameShadow(QFrame.Raised)
         self.verticalLayout_11 = QVBoxLayout(self.frame_8)
         self.verticalLayout_11.setObjectName(u"verticalLayout_11")
-        self.time_left_label = QLabel(self.frame_8)
-        self.time_left_label.setObjectName(u"time_left_label")
-        font2 = QFont()
-        font2.setPointSize(16)
-        font2.setBold(True)
-        font2.setWeight(75)
-        self.time_left_label.setFont(font2)
-        self.time_left_label.setStyleSheet(u"background-color: rgb(55, 55, 55);\n"
+        self.message = QLabel(self.frame_8)
+        self.message.setObjectName(u"message")
+        self.message.setFont(font3)
+        self.message.setStyleSheet(u"background-color: rgb(55, 55, 55);\n"
 "color: rgb(255, 255, 255);")
-        self.time_left_label.setAlignment(Qt.AlignCenter)
+        self.message.setAlignment(Qt.AlignCenter)
 
-        self.verticalLayout_11.addWidget(self.time_left_label)
+        self.verticalLayout_11.addWidget(self.message)
 
 
         self.verticalLayout_7.addWidget(self.frame_8)
@@ -263,14 +342,20 @@ class Ui_MainWindow(object):
         MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"MainWindow", None))
         self.label.setText(QCoreApplication.translate("MainWindow", u"Avialable Vaults", None))
         self.add_btn.setText(QCoreApplication.translate("MainWindow", u"Add New Vault", None))
-        self.label_2.setText(QCoreApplication.translate("MainWindow", u"Enter details", None))
-        self.text_input.setHtml(QCoreApplication.translate("MainWindow", u"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+        self.delay_format.setItemText(0, QCoreApplication.translate("MainWindow", u"Minutes", None))
+        self.delay_format.setItemText(1, QCoreApplication.translate("MainWindow", u"Hours", None))
+        self.delay_format.setItemText(2, QCoreApplication.translate("MainWindow", u"Days", None))
+
+        self.vaultTitleLabel.setText(QCoreApplication.translate("MainWindow", u"Vault Title", None))
+        self.vaultMessageLabel.setText(QCoreApplication.translate("MainWindow", u"Enter details", None))
+        self.vault_message.setHtml(QCoreApplication.translate("MainWindow", u"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:'Ubuntu'; font-size:14pt; font-weight:600; font-style:normal;\">\n"
+"</style></head><body style=\" font-family:'Ubuntu'; font-size:12pt; font-weight:600; font-style:normal;\">\n"
 "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:11pt; font-weight:400;\"><br /></p></body></html>", None))
         self.save_btn.setText(QCoreApplication.translate("MainWindow", u"Save", None))
-        self.back_btn.setText(QCoreApplication.translate("MainWindow", u"Back", None))
-        self.time_left_label.setText(QCoreApplication.translate("MainWindow", u"TIME LEFT", None))
+        self.timeEdit.setDisplayFormat(QCoreApplication.translate("MainWindow", u"HH:mm:ss", None))
+        self.label_2.setText(QCoreApplication.translate("MainWindow", u"DD:HH:mm", None))
+        self.message.setText("")
     # retranslateUi
 
