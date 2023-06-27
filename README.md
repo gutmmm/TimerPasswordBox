@@ -7,4 +7,4 @@ Useful for an acountability software such as iOS Screen Time or any Android alte
 
 
 ## Showcase
-![](https://github.com/gutmmm/TimerPasswordBox/blob/main/Screencast%20from%2022.06.2023%2017_43_30.gif)
+![](https://github.com/gutmmm/TimerPasswordBox/blob/main/demo.gif)
